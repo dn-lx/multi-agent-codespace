@@ -64,30 +64,30 @@ If the target repository contains a `dev` branch, that is the starting point. Ot
 
 The worktrees are created only when you request a project. You may use any app repository, including private ones when Git is appropriately authorized.
 
-### Step 3 — Start three independent coding sessions
+### Step 3 — Work in tandem
 
-Use three browser terminal tabs:
+Start with one implementation session, then add a second CLI for an independent review or a separate bounded task. Use all three only when the work divides cleanly or a third perspective is valuable; they do not share conversations, logins, or quotas.
 
 ```bash
-# Tab 1
 bash scripts/agent.sh claude my-project
-
-# Tab 2
+bash scripts/agent.sh status
+# In another terminal, start a separate worktree when needed:
 bash scripts/agent.sh codex my-project
-
-# Tab 3
-bash scripts/agent.sh agy my-project
 ```
 
-Each launcher uses a separate Git worktree and a separate **tmux** session. To detach without stopping the agent, press **Ctrl-b**, then **d**. Re-run the same launcher to reconnect. `bash scripts/agent.sh status` lists sessions.
+Each launcher uses a separate Git worktree and **tmux** session. To detach without stopping the agent, press **Ctrl-b**, then **d**. Re-run the launcher to reconnect. Use the third CLI selectively; never let agents modify the same dirty worktree. For a ready-to-use brief, review prompt, and handoff routine, see [Tandem workflow and usage](docs/WORKFLOW-AND-USAGE.md).
 
-For maintenance of this environment itself, omit the project name: `bash scripts/agent.sh codex`.
+### Step 4 — Track usage and integrate safely
 
-**tmux survives browser-terminal disconnects; it does not survive a stopped or rebuilt Codespace.** Never let agents modify the same dirty worktree.
+Check each provider's native usage view, and optionally record active session minutes and any verified charges in the private local ledger:
 
-### Step 4 — Review handoffs and integrate safely
+```bash
+python3 scripts/usage.py add --agent claude --project my-project --task issue-42 \
+  --model sonnet --billing subscription --minutes 35
+python3 scripts/usage.py summary --month 2026-11
+```
 
-Have each agent implement or review in its own worktree. Once tested, the owner can open a pull request from an agent branch and choose what to merge. Do not ask one agent to edit another agent's uncommitted working directory. Use project instructions (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) if supplied by that repository.
+The ledger stays outside the repository and does not collect prompts, outputs, or credentials. It cannot combine provider quotas. Review the final diff and checks yourself, then open a pull request from the agent branch when ready. Do not ask one agent to edit another agent's uncommitted working directory. Use project instructions (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) if supplied by that repository.
 
 ### Direct ChatGPT access
 

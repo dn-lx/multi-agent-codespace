@@ -20,3 +20,5 @@ This repository provisions independent developer tools. It is **not** an applica
 
 ## Handoffs
 Record completed changes and test commands in the relevant project's commits/PRs. For cross-agent review, ask a different agent to inspect the diff in **its own clean worktree** before applying any suggested edits. The user chooses when to launch each agent.
+
+Use one lead agent, then add a reviewer or parallel contributor only for a distinct bounded task. Follow [docs/WORKFLOW-AND-USAGE.md](docs/WORKFLOW-AND-USAGE.md) for the brief, review handoff, provider-native quota checks, and private manual usage ledger. Provider plans and API/credit billing remain separate; never report the local ledger as a combined quota.
