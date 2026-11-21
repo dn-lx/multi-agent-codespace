@@ -1,4 +1,4 @@
-# Lean Linux Codespace for three independent coding CLIs.
+# Lean Linux Codespace for independent coding CLIs and a shared local router.
 FROM mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
 
 RUN apt-get update \

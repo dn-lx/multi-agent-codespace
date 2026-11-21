@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One CLI per worktree, attached to its own tmux session.
+# One coding CLI per worktree, attached to its own tmux session.
 set -Eeuo pipefail
 export PATH="$HOME/.local/bin:$PATH"
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
@@ -10,6 +10,7 @@ Usage:
   bash scripts/agent.sh claude [project-name]
   bash scripts/agent.sh codex  [project-name]
   bash scripts/agent.sh agy    [project-name]
+  bash scripts/agent.sh copilot [project-name]
   bash scripts/agent.sh status
 
 An omitted project name runs the CLI in this environment repository.
@@ -23,7 +24,7 @@ if [[ "$agent" == status ]]; then
   tmux list-sessions -F '#{session_name}  #{session_windows} windows' 2>/dev/null || echo "No tmux sessions."
   exit 0
 fi
-case "$agent" in claude|codex|agy) ;; help|-h|--help) usage; exit 0 ;; *) usage; exit 2 ;; esac
+case "$agent" in claude|codex|agy|copilot) ;; help|-h|--help) usage; exit 0 ;; *) usage; exit 2 ;; esac
 [[ $# -le 2 ]] || { usage; exit 2; }
 bin="$(command -v "$agent" || true)"
 [[ -n "$bin" ]] || { echo "Not installed: $agent" >&2; exit 1; }

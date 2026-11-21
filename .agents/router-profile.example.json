@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "freshness_hours": 72,
+  "minimum_quality_samples": 5,
+  "allow_api_or_credit_routing_by_default": false,
+  "providers": {
+    "claude": {
+      "command": "claude",
+      "enabled": true,
+      "paid_billing": "api",
+      "supports": ["reasoning-high", "coding-high", "fast-utility", "long-context", "multimodal"],
+      "models": {
+        "reasoning-high": "opus",
+        "coding-high": "sonnet",
+        "fast-utility": "haiku",
+        "long-context": "sonnet",
+        "multimodal": "sonnet"
+      }
+    },
+    "codex": {
+      "command": "codex",
+      "enabled": true,
+      "paid_billing": "api",
+      "supports": ["reasoning-high", "coding-high", "fast-utility", "long-context", "multimodal"],
+      "models": {
+        "reasoning-high": null,
+        "coding-high": null,
+        "fast-utility": null,
+        "long-context": null,
+        "multimodal": null
+      }
+    },
+    "antigravity": {
+      "command": "agy",
+      "enabled": true,
+      "paid_billing": "credits",
+      "supports": ["reasoning-high", "coding-high", "fast-utility", "long-context", "multimodal"],
+      "models": {
+        "reasoning-high": null,
+        "coding-high": null,
+        "fast-utility": null,
+        "long-context": null,
+        "multimodal": null
+      }
+    },
+    "copilot": {
+      "command": "copilot",
+      "enabled": true,
+      "paid_billing": "credits",
+      "supports": ["reasoning-high", "coding-high", "fast-utility", "long-context"],
+      "models": {
+        "reasoning-high": null,
+        "coding-high": null,
+        "fast-utility": null,
+        "long-context": null,
+        "multimodal": null
+      }
+    },
+    "omniroute": {
+      "command": "omniroute",
+      "enabled": false,
+      "paid_billing": "api",
+      "models": {}
+    }
+  }
+}
