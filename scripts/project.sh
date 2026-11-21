@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Independent Git worktrees for Claude, Codex and Antigravity.
+# Independent Git worktrees for supported coding CLI hosts.
 set -Eeuo pipefail
 ROOT="${MULTI_AGENT_PROJECTS_ROOT:-/workspaces/projects}"
 usage() {
@@ -8,10 +8,10 @@ Usage:
   bash scripts/project.sh add <git-url-or-path> [project-name]
   bash scripts/project.sh list
   bash scripts/project.sh status <project-name>
-  bash scripts/project.sh path <project-name> <claude|codex|agy>
+  bash scripts/project.sh path <project-name> <claude|codex|agy|copilot>
 
-Clones once into /workspaces/projects/NAME/source and creates three isolated
-branches/worktrees for Claude Code, Codex, and Antigravity.
+Clones once into /workspaces/projects/NAME/source and creates isolated
+branches/worktrees for Claude Code, Codex, Antigravity, and Copilot.
 Set MULTI_AGENT_PROJECTS_ROOT to override the destination.
 HELP
 }
@@ -20,7 +20,7 @@ safe_name() {
     { echo "Invalid project name: use letters, digits, underscores and hyphens." >&2; exit 2; }
 }
 agent_name() {
-  case "$1" in claude|codex|agy) ;; *) echo "Unknown agent: $1" >&2; exit 2 ;; esac
+  case "$1" in claude|codex|agy|copilot) ;; *) echo "Unknown agent: $1" >&2; exit 2 ;; esac
 }
 action="${1:-help}"
 case "$action" in
@@ -44,12 +44,12 @@ case "$action" in
       [[ -n "$base" ]] || base="HEAD"
     fi
     stamp="$(date -u +%Y%m%dT%H%M%SZ)-$$"
-    for agent in claude codex agy; do
+    for agent in claude codex agy copilot; do
       branch="agents/$agent/$stamp"
       git -C "$source" worktree add -b "$branch" "$target/$agent" "$base"
     done
     echo "Project: $project | base: $base"
-    for agent in claude codex agy; do
+    for agent in claude codex agy copilot; do
       echo "$agent: $target/$agent"
     done
     echo "Review changes and open PRs from each agent's branch; never merge automatically."
@@ -67,7 +67,7 @@ case "$action" in
     safe_name "$2"
     target="$ROOT/$2"
     [[ -d "$target/source" ]] || { echo "Project not found: $2" >&2; exit 1; }
-    for part in source claude codex agy; do
+    for part in source claude codex agy copilot; do
       if [[ -d "$target/$part" ]]; then
         echo "[$part] $target/$part"
         git -C "$target/$part" status --short --branch

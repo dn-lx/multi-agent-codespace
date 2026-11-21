@@ -1,5 +1,5 @@
 {
-  "name": "Multi-agent Codespace | Claude · Codex · Antigravity",
+  "name": "Multi-agent Codespace | Claude · Codex · Antigravity · Copilot",
   "build": {
     "dockerfile": "Dockerfile"
   },

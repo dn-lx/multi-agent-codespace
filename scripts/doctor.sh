@@ -10,11 +10,18 @@ printf 'Git state: '
 if [[ -z "$(git status --porcelain)" ]]; then echo clean; else echo "local changes present"; fi
 printf 'Platform: '; uname -sm
 echo
-for bin in git gh node npm python3 rg tmux claude codex agy; do
-  printf '%-11s' "$bin"
+for bin in git gh node npm python3 rg tmux claude codex agy copilot omniroute agent-usage agent-route; do
+  printf '%-15s' "$bin"
   if command -v "$bin" >/dev/null 2>&1; then
-    if [[ "$bin" == tmux ]]; then "$bin" -V 2>&1 | head -n 1 || true
-    else "$bin" --version 2>&1 | head -n 1 || true; fi
+    if [[ "$bin" == tmux ]]; then
+      "$bin" -V 2>&1 | head -n 1 || true
+    elif [[ "$bin" == omniroute ]]; then
+      "$bin" --version 2>&1 | tail -n 1 || true
+    elif [[ "$bin" == agent-usage || "$bin" == agent-route ]]; then
+      "$bin" --help 2>&1 | head -n 1 || true
+    else
+      "$bin" --version 2>&1 | head -n 1 || true
+    fi
   else
     echo 'NOT INSTALLED'
   fi
@@ -39,6 +46,8 @@ if [[ "${1:-}" == --auth ]]; then
   printf 'GitHub CLI: '
   if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then echo 'logged in'; else echo 'not logged in'; fi
   echo 'Antigravity: check authentication interactively in agy; model listing alone does not prove sign-in.'
+  echo 'Copilot: authenticate in copilot with /login; check usage in GitHub billing/IDE settings.'
+  echo 'OmniRoute: optional local gateway, not an account or provider quota.'
   echo 'Credentials were not printed.'
 elif [[ "${1:-}" != "" ]]; then
   echo 'Usage: bash scripts/doctor.sh [--auth]' >&2
