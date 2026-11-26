@@ -21,7 +21,7 @@ A browser-based calculator implementing standard arithmetic and state management
 | `0` to `9` | Input digit |
 | `+`, `-`, `*`, `/` | Set operator |
 | `.` | Input decimal point |
-| `Enter`, `=` | Calculate result (equals) |
+| `Enter`, `=` | Calculate result (equals). When a button has keyboard focus, `Enter` presses that button instead. |
 | `Backspace` | Backspace |
 | `Escape` | Clear all |
 | `%` | Percent |
