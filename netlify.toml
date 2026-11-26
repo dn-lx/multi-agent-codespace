@@ -1,0 +1,17 @@
+[build]
+  base = "calculator"
+  publish = "."
+  command = ""
+
+  # Only builds from the `dev` branch are deployed. The site is static, so
+  # there is nothing to build; skipping other branches saves Netlify build
+  # credits. Exit 0 = skip the build, exit 1 = build.
+  ignore = "[ \"$BRANCH\" != \"dev\" ]"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
