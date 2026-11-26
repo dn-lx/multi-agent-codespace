@@ -163,7 +163,11 @@ export function createCalculator() {
 
     toggleSign() {
       if (display === 'Error') return;
-      if (value === 0) {
+      if (value === 0 && phase === 'entry' && display.includes('.')) {
+        // A zero decimal entry still being typed ("0.", "-0.00") keeps its point.
+        display = display.startsWith('-') ? display.slice(1) : `-${display}`;
+        value = Number(display);
+      } else if (value === 0) {
         display = '0';
       } else {
         value = -value;

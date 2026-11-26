@@ -205,6 +205,23 @@ test('toggleSign negates the displayed value and leaves "0" unchanged', () => {
   assert.equal(calcWith('0S').getDisplay(), '0');
 });
 
+test('toggleSign on "0" without a decimal point leaves "0"', () => {
+  assert.equal(calcWith('S').getDisplay(), '0');
+  assert.equal(calcWith('SS').getDisplay(), '0');
+});
+
+test('toggleSign on a zero decimal entry keeps the point and the entry open', () => {
+  assert.equal(calcWith('.S').getDisplay(), '-0.');
+  assert.equal(calcWith('.00S').getDisplay(), '-0.00');
+  assert.equal(calcWith('.S5').getDisplay(), '-0.5');
+  assert.equal(calcWith('.S5+1=').getDisplay(), '0.5');
+});
+
+test('toggleSign on "-0." shows "0." again', () => {
+  assert.equal(calcWith('.SS').getDisplay(), '0.');
+  assert.equal(calcWith('.SS5').getDisplay(), '0.5');
+});
+
 test('percent divides the displayed value by 100', () => {
   assert.equal(calcWith('50%').getDisplay(), '0.5');
 });
