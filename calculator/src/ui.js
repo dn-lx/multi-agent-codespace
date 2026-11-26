@@ -54,6 +54,8 @@ keys.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.ctrlKey || event.metaKey || event.altKey) return;
   const { key } = event;
+  // Let the browser activate a focused button on Enter (fires its click once).
+  if (key === 'Enter' && event.target instanceof Element && event.target.closest('button')) return;
   let handled = true;
 
   if (key >= '0' && key <= '9' && key.length === 1) {
