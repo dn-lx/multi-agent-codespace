@@ -36,6 +36,8 @@ Serve from the `calculator/` directory using Python without installing dependenc
 python -m http.server
 ```
 
+Or, with Node.js: `npx --yes serve .`
+
 ## Tests
 
 Run the test suite using Node.js built-in test runner (Node 20 or later, no install needed):
